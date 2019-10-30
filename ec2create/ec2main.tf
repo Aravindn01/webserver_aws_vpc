@@ -103,6 +103,22 @@ provisioner "file" {
           "unzip /var/www/html/index.zip -d /var/www/html/"
           ]
 
+/*
+          inline = [
+          "sudo dnf install httpd -y",
+          "sudo dnf install unzip -y",
+          "sudo dnf install wget -y",
+          "sudo systemctl enable httpd",
+          "sudo systemctl start httpd",
+          #"sudo dnf install firewalld -y",
+          #"sudo firewall-cmd --zone=public --permanent --add-service=http",
+          #"sudo firewall-cmd --reload",
+          "sudo chown -R ec2-user:users /var/www",
+          #"cp /tmp/index.zip /var/www/html/",
+          "wget -P /var/www/html/ https://github.com/Aravindn01/webserver_aws_vpc/blob/master/website/index_files.zip",
+          "unzip /var/www/html/index_files.zip -d /var/www/html/"
+          ]
+*/
       connection {
           type     = "ssh"
           user     = "ec2-user"
