@@ -50,7 +50,7 @@ resource "aws_security_group" "subnet" {
   }
 }
 
-resource "aws_instance" "jazzy" {
+resource "aws_instance" "jazz" {
   provider =  "aws.aravind"
   ami           = "ami-0a74bfeb190bd404f"
   instance_type = "t2.micro"
