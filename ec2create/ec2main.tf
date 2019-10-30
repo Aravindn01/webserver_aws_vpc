@@ -56,19 +56,18 @@ resource "aws_instance" "jazzy" {
   instance_type = "t2.micro"
   key_name = "deployer-key"
   availability_zone = "${var.myaz}"
-  #subnet_id = "${module.vpc.aws_subnet.public.id}"
-  #vpc_id            = "${module.vpc.aws_vpc.main.id}"
   subnet_id = "${var.mysubnet_id}"
   vpc_security_group_ids = ["${aws_security_group.subnet.id}"]
   associate_public_ip_address = true
   
   tags = {
-   Name = "aravind"
+   Name = "aravind-web"
      }
 
 
 provisioner "file" {
-    source     = "/home/aravind/Documents/index_files.zip"
+    source     = "/home/aravind/tf/webserver/website/index_files.zip"
+    #source     = "website/index_files.zip"
     destination = "/tmp/index.zip"
 
     connection {
@@ -94,13 +93,12 @@ provisioner "file" {
           inline = [
           "sudo dnf install httpd -y",
           "sudo dnf install unzip -y",
-          #"sudo dnf install firewalld -y",
           "sudo systemctl enable httpd",
           "sudo systemctl start httpd",
+          #"sudo dnf install firewalld -y",
           #"sudo firewall-cmd --zone=public --permanent --add-service=http",
           #"sudo firewall-cmd --reload",
           "sudo chown -R ec2-user:users /var/www",
-          #"sudo echo 'Hi There, this is aravind ' > /var/www/html/index.html"]
           "cp /tmp/index.zip /var/www/html/",
           "unzip /var/www/html/index.zip -d /var/www/html/"
           ]
